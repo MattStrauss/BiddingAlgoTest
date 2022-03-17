@@ -214,7 +214,7 @@ public class Algo {
             }
 
             // randomly select three projects for each student
-            while (list.size() > numberOfProjects - 3) {
+            while (list.size() > numberOfProjects - 3) { 
                 Integer index = rand.nextInt(numberOfProjects);
                 if (! bids.get(i).contains(index)) {
                     bids.get(i).add(index);
