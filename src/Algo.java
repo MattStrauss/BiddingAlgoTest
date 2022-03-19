@@ -1,10 +1,11 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Algo {
 
     private int studentCount = 20;
-    private int numberOfProjects = 5;
+    private int numberOfProjects = 8;
     private final Random rand = new Random();
     // student count = number of rows, so student 1 = row 0
     private final ArrayList<ArrayList<Integer>> bids = new ArrayList<>(studentCount);
@@ -64,6 +65,45 @@ public class Algo {
         }
 
 
+        System.out.println("\nResults (Got 1st, 2nd, 3rd project choice)");
+        ArrayList<Float> stats = getStats();
+        for (Float stat : stats) {
+            System.out.println(stat * 100 + "%");
+        }
+
+
+    }
+
+    private ArrayList<Float> getStats() {
+        int gotFirstChoiceProject = 0, gotSecondChoiceProject = 0, gotThirdChoiceProject = 0;
+        float firstChoicePercentage, secondChoicePercentage, thirdChoicePercentage;
+
+
+        for (int j = 0; j < project_bids.size(); j++) {
+
+            for (int i = 0; i < 3; i ++) {
+
+                for (Integer bid : project_bids.get(j).get(i)) {
+
+                    if (suggestedTeams.get(j).contains(bid)) {
+
+                        switch (i) {
+                            case 0 -> gotFirstChoiceProject++;
+                            case 1 -> gotSecondChoiceProject++;
+                            case 2 -> gotThirdChoiceProject++;
+                        }
+                    }
+                }
+            }
+        }
+
+        ArrayList<Float> stats = new ArrayList<>();
+
+        stats.add(gotFirstChoiceProject / (float) studentCount);
+        stats.add(gotSecondChoiceProject / (float) studentCount);
+        stats.add(gotThirdChoiceProject / (float) studentCount);
+
+        return stats;
     }
 
     private void suggestTeams() {
