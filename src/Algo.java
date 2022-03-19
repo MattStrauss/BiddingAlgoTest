@@ -76,8 +76,6 @@ public class Algo {
 
     private ArrayList<Float> getStats() {
         int gotFirstChoiceProject = 0, gotSecondChoiceProject = 0, gotThirdChoiceProject = 0;
-        float firstChoicePercentage, secondChoicePercentage, thirdChoicePercentage;
-
 
         for (int j = 0; j < project_bids.size(); j++) {
 
@@ -117,7 +115,10 @@ public class Algo {
             return;
         }
 
+
+        ArrayList<Integer> suggestedTeamsToClear = new ArrayList<>();
         int choice = 0;
+
         while (suggestedTeams.get(leastFirstChoiceProject).size() < 4 && choice < 3) {
 
             for (Integer student : project_bids.get(leastFirstChoiceProject).get(choice)) {
@@ -147,9 +148,14 @@ public class Algo {
                 for (Integer student : suggestedTeams.get(leastFirstChoiceProject)) {
                     assignedStudents.remove(student);
                     availableStudents.add(student);
+                    suggestedTeamsToClear.add(leastFirstChoiceProject);
                 }
                 unpopularProjects.add(leastFirstChoiceProject);
             }
+        }
+
+        for (Integer team : suggestedTeamsToClear) {
+            suggestedTeams.get(team).clear();
         }
 
         suggestTeams();
